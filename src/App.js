@@ -9,18 +9,18 @@ function App() {
   const [userInfo, setUserInfo] = useState(null)
 
   useEffect(()=>{
-    console.log(auth, auth.currentUser)
-    setTimeout(()=>{
-      loadInfo()
-    }, 1000)
-  },[auth])
+    const unsubscribe = auth.onAuthStateChanged((user)=>{
+      console.log(user)
+      if(user){
+        setUserInfo(user)
+      }
+      else{
+        setUserInfo(null)
+      }
+    })
 
-  function loadInfo(){
-    if(auth.currentUser){
-      setUserInfo(auth.currentUser)
-      console.log("setoy")
-    }
-  }
+    return ()=> unsubscribe();
+  },[])
 
   return (
     <div className="app">
@@ -28,7 +28,7 @@ function App() {
         <div className='login-section'>
           {userInfo ? <div className='user-info'>{userInfo.displayName} <img className="avatar" src={userInfo.photoURL} onClick={()=>{auth.signOut()
              window.location.reload()}}/></div>: <Button className="login-button" variant="contained" onClick={()=>{loginGoogle()
-              loadInfo()}}>Login</Button>}
+              }}>Login</Button>}
         </div>
       </header>
     </div>
