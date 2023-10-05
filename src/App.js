@@ -85,8 +85,9 @@ function App() {
               <Divider />
               <MenuItem onClick={handleClose}>
               
-                Add another account
+                Add review
               </MenuItem>
+
               <MenuItem onClick={handleClose}>
                 
                 Settings
