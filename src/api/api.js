@@ -9,3 +9,7 @@ const instance = axios.create({
 export default function getGame(search){
 return instance.get('/games',{ params: {key: "3a27f22286a44b37873aa859b07d8c5a", search } })
 }
+
+export function getGameID(id){
+  return instance.get('/games/'+id,{ params: {key: "3a27f22286a44b37873aa859b07d8c5a" } })
+  }

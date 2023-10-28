@@ -14,11 +14,12 @@ import CircularProgress from '@mui/material/CircularProgress';
 import * as React from 'react';
 import makeAutenticate from './api/api';
 import getGame from './api/api';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 function App() {
   const [userInfo, setUserInfo] = useState(null)
-
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -47,6 +48,9 @@ function App() {
   const [options, setOptions] = React.useState([]);
   const loading = open && options.length === 0;
 
+  useEffect(()=>{
+    searchGame("")
+  },[])
 
   function searchGame(search){
     getGame(search).then((result)=>{
@@ -65,7 +69,7 @@ function App() {
       sx={{ width: 300 }}
       onChange={(event, newValue) => {
         if(newValue){
-          window.alert(newValue.name+" selected!")
+          navigate("/games/"+newValue.id)
         }
       }}
       open={opena}
